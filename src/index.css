@@ -2,17 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Tapflow Design System - Dark theme with purple accents */
 
 @layer base {
   :root {
-   
-  }
-
-  .dark {
-
+    /* Background colors */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+    
+    /* Card colors */
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 98%;
+    
+    /* Popover colors */
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 98%;
+    
+    /* Primary colors - purple theme */
+    --primary: 270 100% 87%;
+    --primary-foreground: 0 0% 0%;
+    
+    /* Secondary colors */
+    --secondary: 0 0% 8%;
+    --secondary-foreground: 0 0% 98%;
+    
+    /* Muted colors */
+    --muted: 0 0% 8%;
+    --muted-foreground: 0 0% 59%;
+    
+    /* Accent colors */
+    --accent: 0 0% 8%;
+    --accent-foreground: 0 0% 98%;
+    
+    /* Destructive colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    
+    /* Border and input */
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 270 100% 87%;
+    
+    /* Radius */
+    --radius: 0.75rem;
+    
+    /* Custom Tapflow colors */
+    --hero-gradient-from: 0 0% 0%;
+    --hero-gradient-to: 0 0% 10%;
+    --purple-accent: 270 100% 87%;
+    --purple-accent-muted: 270 50% 80%;
+    --text-muted: 0 0% 59%;
   }
 }
 
@@ -20,8 +59,84 @@ All colors MUST be HSL.
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
+}
+
+/* Custom components */
+@layer components {
+  .hero-gradient {
+    background: linear-gradient(135deg, hsl(var(--hero-gradient-from)) 0%, hsl(var(--hero-gradient-to)) 100%);
+  }
+  
+  .purple-gradient {
+    background: linear-gradient(135deg, hsl(var(--purple-accent)) 0%, hsl(var(--purple-accent-muted)) 100%);
+  }
+  
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--purple-accent)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .blur-overlay {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  
+  .animate-text-blur-in {
+    animation: text-blur-in 0.8s ease-out forwards;
+  }
+  
+  .animate-fade-up {
+    animation: fade-up 0.8s ease-out forwards;
+  }
+}
+
+@keyframes text-blur-in {
+  0% {
+    filter: blur(8px);
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    filter: blur(0px);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Typography styles */
+.hero-title {
+  @apply text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-center;
+  font-family: 'Inter Display', 'Inter', system-ui, sans-serif;
+}
+
+.hero-subtitle {
+  @apply text-lg md:text-xl text-center max-w-2xl mx-auto;
+  color: hsl(var(--text-muted));
+}
+
+.section-title {
+  @apply text-4xl md:text-5xl font-bold tracking-tight;
+  font-family: 'Inter Display', 'Inter', system-ui, sans-serif;
+}
+
+.body-text {
+  @apply text-base md:text-lg leading-relaxed;
+  color: hsl(var(--text-muted));
 }
